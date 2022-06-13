@@ -1,5 +1,5 @@
 from pathlib import Path
-from secrets import SECRET_KEY, PASSWORD_WITH_DB
+from .secrets import SECRET_KEY, PASSWORD_WITH_DB
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
