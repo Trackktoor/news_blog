@@ -5,11 +5,13 @@
 {% block content %}
 
 
-    <h2> {{ post.title }} </h2>
-    <span class="date_time">{{ post.date_time }}</span> <br>
-    <span class="views">Просмотры: {{ post.total_views }}</span>
-    <div class="content">
+<div class="post vstack gap-3 col-md-12 mx-auto mt-5 list-group-item">
+    <h2 class="text-center"> <a href="{% url 'post_view' post.id %}"> {{ post.title }} </a></h2><br><br>
+    <span class="date_time">{{ post.date_time }}</span> 
+    <span class="views">Просмотры: {{ post.total_views }}</span> <br>
+    <div >
         {{ post.content }}
     </div>
+</div>
 
 {% endblock %}
