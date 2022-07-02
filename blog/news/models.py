@@ -1,5 +1,5 @@
 from django.db import models
-
+from users.models import CustomUser
 
 class IP(models.Model):
     ip = models.CharField(max_length=200)
@@ -12,6 +12,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200, blank=True)
     content = models.TextField(blank=True)
     views = models.ManyToManyField(IP, related_name='post_views', blank=True)
+    CustomUser = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
 
     def total_views(self):
         return self.views.count()
