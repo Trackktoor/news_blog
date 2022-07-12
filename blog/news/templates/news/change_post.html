@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %} Изменить свой пост {% endblock %}
+{% block styles %} 
+<link rel="stylesheet" href="../../../static/css/create_post_styles.css">
+{% endblock %}
+
+{% block content %}
+<form action="{% url 'change_post_view' id=post.id %}" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <label>Загаловок</label>
+      <br>
+      <input type="text" name="title" value="{{ post.title }}">
+    </div>
+    <br>
+    <div class="form-group">
+      <label>Текст поста</label>
+      <br>
+      <textarea name="content" id="id_content" cols="40" rows="10">{{ post.content }}</textarea>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-warning">Изменить</button>
+  </form>
+{% endblock %}

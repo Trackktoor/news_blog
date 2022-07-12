@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from users.models import CustomUser
 from .models import IP, Post
@@ -14,7 +14,6 @@ def get_client_ip(request):
 
 def home_view(request):
     posts = Post.objects.all()
-    print(posts)
 
     context = {
         'posts': posts
@@ -64,3 +63,29 @@ def create_post_view(request):
         'form': form
         }
     return render(request, 'news/create_post.html', context)
+
+def delete_post_view(request, id):
+    post = Post.objects.get(id=id)
+    if request.user.id == post.CustomUser.id:
+        post.delete()
+        return render(request, 'news/home.html')
+    else:
+        return render(request, 'news/home.html')
+
+def change_post_view(request, id):
+    post = Post.objects.get(id=id)
+    if request.user.id == post.CustomUser.id:
+        if request.method == 'POST':
+            post.title = request.POST.get('title')
+            post.content = request.POST.get('content')
+            post.save()
+            return redirect(f'/{post.id}')
+        else:
+            form = ChangePostForm()
+            context = {
+                'form': form,
+                'post': post
+            }
+            return render(request, 'news/change_post.html', context)
+    else:
+        return render(request, 'news/home.html')
