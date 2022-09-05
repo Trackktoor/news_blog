@@ -28,11 +28,11 @@ def post_view(request, id):
 
     ip_created = IP.objects.get_or_create(ip=ip)
     post.views.add(ip_created[0])
-
     post.save()
 
     context = {
-        'post': post
+        'post': post,
+        'sum_likes': post.sum_likes(post.CustomUser.id)
     }
 
     return render(request, 'news/post_view.html', context=context)
@@ -89,3 +89,9 @@ def change_post_view(request, id):
             return render(request, 'news/change_post.html', context)
     else:
         return render(request, 'news/home.html')
+
+def add_like_post_view(request, id, user_id):
+    post = Post.objects.get(id=id)
+    post.add_like(user_id)
+
+    return post_view(request, id)

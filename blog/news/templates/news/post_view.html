@@ -25,4 +25,13 @@
     </div>
 {% endif %}
 
+{% if request.user.id %}
+    <div>
+        <a href="{% url 'change_post_view' id=post.id %}">
+            <button type="button" class="btn btn-warning">Изменить</button>
+        </a> 
+</div>
+{% endif %}
+    <a href="{% url 'add_like_post' id=post.id user_id=request.user.id %}">Лайк</a>
+    Колличество лайков: {{ sum_likes }}
 {% endblock %}
