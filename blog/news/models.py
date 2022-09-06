@@ -11,8 +11,7 @@ class Like(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     def __str__(self):
         return self.id
-    
-    
+
 
 class Post(models.Model):
     date_time = models.DateTimeField(auto_now_add=True, blank=True)
@@ -41,13 +40,13 @@ class Post(models.Model):
 
         self.save()
     
-    def sum_likes(self, user_id):
+    def sum_likes(self, post_id):
 
-        user = CustomUser.objects.get(id=user_id)
+        sum_likes = Post.likes.through.objects.all().filter(post_id=post_id).count()
 
-        like = Like.objects.filter(user=user).order_by('-id')[0]
-
-        return like.id
+        print(sum_likes)
+        
+        return sum_likes
         
 
         

@@ -32,7 +32,7 @@ def post_view(request, id):
 
     context = {
         'post': post,
-        'sum_likes': post.sum_likes(post.CustomUser.id)
+        'sum_likes': post.sum_likes(id)
     }
 
     return render(request, 'news/post_view.html', context=context)
