@@ -1,4 +1,4 @@
 env/
 .vscode
 /blog/blog/secrets.py
-*.pyc
+**/__pycache__/
