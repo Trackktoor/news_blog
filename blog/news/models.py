@@ -30,21 +30,28 @@ class Post(models.Model):
     def add_like(self, user_id):
         user = CustomUser.objects.get(id=user_id)
         
-        like = Like(
-            user = user,
-        ).save()
+        for like in self.likes.through.objects.all():
+            if Like.objects.get(id=like.like_id).user_id  == user_id:
+                print('d')
+                print(like.like_id)
+                like.delete()
+                Like.objects.get(id=like.like_id).delete()
+                break
+        else:
+            like = Like(
+                user = user,
+            ).save()
 
-        like = Like.objects.filter(user=user).order_by('-id')[0]
+            like = Like.objects.filter(user=user).order_by('-id')[0]
 
-        self.likes.add(like)
-
-        self.save()
+            self.likes.add(like)
+            self.save()
+            
+        
     
     def sum_likes(self, post_id):
 
         sum_likes = Post.likes.through.objects.all().filter(post_id=post_id).count()
-
-        print(sum_likes)
         
         return sum_likes
         
