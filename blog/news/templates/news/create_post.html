@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %} Создать свой пост {% endblock %}
+{% block styles %} 
+<link rel="stylesheet" href="../../../static/css/create_post_styles.css">
+{% endblock %}
+
+{% block content %}
+<form action="{% url 'create_post_view' %}" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <label>Загаловок</label>
+      <br>
+      {{ form.title }}
+    </div>
+    <br>
+    <div class="form-group">
+      <label>Текст поста</label>
+      <br>
+      {{ form.content }}
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Запостить</button>
+  </form>
+{% endblock %}
