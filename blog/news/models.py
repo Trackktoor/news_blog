@@ -54,6 +54,15 @@ class Post(models.Model):
         sum_likes = Post.likes.through.objects.all().filter(post_id=post_id).count()
         
         return sum_likes
+
+class Comment(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    body = models.TextField()
+    date_time = models.DateTimeField(auto_now=True)
+    post_comment = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return 'Пользователь: ' + self.user.username 
         
 
         

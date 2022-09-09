@@ -30,6 +30,26 @@
         <a href="{% url 'add_like_post' id=post.id user_id=request.user.id %}">Лайк</a>
     </div>
 {% endif %}
-
     Колличество лайков: {{ sum_likes }}
+    {% if error_validate %}
+        {{ error_validate }}    
+    {% endif %}
+    <div class="comment_container">
+        <div class="comment_post">
+            <form action="{% url 'add_comment' id=post.id%}" method="post">
+                {% csrf_token %}
+                <label for="comment_body">Комментарий: </label> <br>
+                <textarea name="comment_body" id="comment_body" cols="85" rows="10"></textarea> <br>
+                <input type="submit" value="Отправить"> <br> <br>
+            </form>
+        </div>
+        {% for comment in comments %}
+        <div class="comment">
+            <div class="comment_header">
+                {{ comment.user }} {{ comment.date_time }} <br>
+                {{ comment.body }}
+            </div>
+        </div> <br>
+        {% endfor %}
+    </div>
 {% endblock %}
