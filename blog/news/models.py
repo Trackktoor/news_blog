@@ -12,7 +12,6 @@ class Like(models.Model):
     def __str__(self):
         return self.id
 
-
 class Post(models.Model):
     date_time = models.DateTimeField(auto_now_add=True, blank=True)
     title = models.CharField(max_length=200, blank=True)
