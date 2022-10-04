@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'news.apps.NewsConfig',
     'users.apps.UsersConfig',
+    'achievements.apps.AchievementsConfig'
 ]
 
 MIDDLEWARE = [

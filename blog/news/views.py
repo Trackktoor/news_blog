@@ -5,6 +5,8 @@ from users.models import CustomUser
 from .models import IP, Post, Comment
 from .forms import *
 
+from achievements.util import first_post_achievement
+
 def get_client_ip(request):
     x_forwared_for = request.META.get('HTTP_X_FORWARED_FOR')
     if x_forwared_for:
@@ -61,6 +63,8 @@ def create_post_view(request):
                 'post': post
             }
 
+            first_post_achievement(request.user.id) # Добавляем очику если нужно
+
             return render(request, 'news/post_view.html', context)
     
     context = {
@@ -72,9 +76,10 @@ def delete_post_view(request, id):
     post = Post.objects.get(id=id)
     if request.user.id == post.CustomUser.id:
         post.delete()
-        return render(request, 'news/home.html')
+        return redirect('/')
     else:
-        return render(request, 'news/home.html')
+        return redirect('/')
+
 
 def change_post_view(request, id):
     post = Post.objects.get(id=id)
