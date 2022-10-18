@@ -2,4 +2,4 @@ env/
 .vscode
 /blog/blog/secrets.py
 *.pyc
-blog/achievements/util.py
+util.py
