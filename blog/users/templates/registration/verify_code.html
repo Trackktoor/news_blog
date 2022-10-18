@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %} Подтверждение {% endblock %}
+
+{% block content %}
+<form method="post"">
+    {% csrf_token %}
+    <div class="container px-4">
+        <div class="form-group">
+            <div class="form-group">
+                <label for="verify_code">Код</label>
+                <input type="text" class="form-control" id="verify_code" placeholder="код" name="verify_code">
+            </div>
+        <div class="container">
+            <div class="row">
+            <div class="col text-center">
+                <button type="submit" class="btn btn-primary">Зарегестрироваться</button>
+            </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

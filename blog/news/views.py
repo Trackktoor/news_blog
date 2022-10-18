@@ -1,9 +1,12 @@
 from multiprocessing import context
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from users.models import CustomUser
 from .models import IP, Post, Comment
 from .forms import *
+
+
 
 from achievements.util import first_post_achievement
 
@@ -115,3 +118,4 @@ def comment_add_view(request, id):
         return post_view(request, id)
     else:
         return post_view(request, id, context_dict={'error_validate': 'Вы не написали комментарий!'})
+

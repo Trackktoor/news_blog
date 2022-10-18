@@ -1,5 +1,5 @@
 from pathlib import Path
-from .secrets import SECRET_KEY, PASSWORD_WITH_DB
+from .secrets import SECRET_KEY, PASSWORD_WITH_DB,APP_PASSWORD_MAIL
 
 import os
 
@@ -102,5 +102,14 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 LOGIN_REDIRECT_URL = 'home_view'
 LOGOUT_REDIRECT_URL = 'home_view'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'piplison2122@gmail.com'
+EMAIL_HOST_PASSWORD = APP_PASSWORD_MAIL
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
