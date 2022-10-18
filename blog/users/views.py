@@ -49,4 +49,6 @@ def check_verify_code(request, hash, user_id):
     else:
         return render(request, 'registration/verify_code.html')
 
+#def profile_view(request):
+#    user = CustomUser.objects.get(id=request.user.id)
     

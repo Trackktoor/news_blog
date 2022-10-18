@@ -1,10 +1,11 @@
 from multiprocessing import context
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-
+from django.contrib.auth.decorators import login_required
 from users.models import CustomUser
 from .models import IP, Post, Comment
 from .forms import *
+from users.views import Registrate
 
 
 
@@ -20,12 +21,8 @@ def get_client_ip(request):
 
 def home_view(request):
     posts = Post.objects.all()
+    return render(request, 'news/home.html', context = {'posts': posts})
 
-    context = {
-        'posts': posts
-    }
-
-    return render(request, 'news/home.html', context)
 
 def post_view(request, id, context_dict = {}):
     post = Post.objects.get(id=id)
@@ -46,6 +43,7 @@ def post_view(request, id, context_dict = {}):
 
     return render(request, 'news/post_view.html', context=context)
 
+@login_required
 def create_post_view(request):
     if request.method == 'GET':
         form = CreatePostForm()
@@ -75,6 +73,8 @@ def create_post_view(request):
         }
     return render(request, 'news/create_post.html', context)
 
+
+@login_required
 def delete_post_view(request, id):
     post = Post.objects.get(id=id)
     if request.user.id == post.CustomUser.id:
@@ -83,7 +83,7 @@ def delete_post_view(request, id):
     else:
         return redirect('/')
 
-
+@login_required
 def change_post_view(request, id):
     post = Post.objects.get(id=id)
     if request.user.id == post.CustomUser.id:
@@ -102,12 +102,14 @@ def change_post_view(request, id):
     else:
         return render(request, 'news/home.html')
 
+@login_required
 def add_like_post_view(request, id, user_id):
     post = Post.objects.get(id=id)
     post.add_like(user_id)
 
     return post_view(request, id)
 
+@login_required
 def comment_add_view(request, id):
     form = CommentPostForm(request.POST or None)
     if form.is_valid():

@@ -30,7 +30,12 @@
                     <a class="nav-link" href="{% url 'create_post_view' %}">Создать статью</a>
                   </li>
                 </ul>
-                {{ request.user }}
+                {% if request.user.is_authenticated  %}
+                  {{ request.user }}
+                {% else %}
+                  <a href="{% url 'login' %}" style="margin-right: 5px;">Войти</a>
+                  <a href="{% url 'signup' %}">Зарегистрироваться</a>
+                {% endif %}
                 <form class="d-flex" role="search">
                   <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
                   <button class="btn btn-outline-success" type="submit">Поиск</button>
