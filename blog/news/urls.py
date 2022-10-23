@@ -1,5 +1,7 @@
 from . import views
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.home_view.as_view(), name='home_view'),
@@ -21,4 +23,6 @@ urlpatterns = [
         name='add_like_post'
     ),
     path('add_comment/<int:id>', views.comment_add_view.as_view(), name='add_comment'),
-]
+    path('my_posts/<int:id>', views.User_posts.as_view(), name='User_posts'),
+    path('top_raiting', views.Top_rating.as_view(), name='Top_raiting')
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

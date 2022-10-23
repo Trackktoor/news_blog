@@ -1,7 +1,29 @@
 {% extends 'base.html' %}
 
 {% block title %} {{ user.username }} {% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="../../../static/css/profile_view_styles.css">
+
+{% endblock %}
 
 {% block content %}
-    
+<div id="header_for_user"></div>
+    <div class="container">
+        <div id="container_user_avatar">
+
+                <div style="background-image: url({{avatar_url}})" class="avatar"></div>
+                {{ user.username }}
+        </div>
+        <br>
+        <div class="content_profile">
+            <ul>
+                <h2>Очивки</h2>
+                {% for achievement in achievements %}
+                    <li> {{achievement.name}}</li>
+                {% endfor %}
+            </ul>
+            <h2>Колличество постов</h2>
+            <strong>{{count_posts}}</strong>
+        </div>
+    </div>
 {% endblock %}

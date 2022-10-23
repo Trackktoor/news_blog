@@ -1,7 +1,11 @@
-#user_avatar {
-    margin-right: 10px;
-}
-
 header {
     margin-bottom: 30px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.post {
+    text-align: center;
 }

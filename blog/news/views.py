@@ -1,5 +1,4 @@
-from django.shortcuts import render, redirect, reverse
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 from users.models import CustomUser
 from .models import IP, Post, Comment
 from .forms import *
@@ -122,3 +121,17 @@ class comment_add_view(VerificationUserMixin):
             return post_view().get(request, id)
         else:
             return post_view().get(request=request, id=id, context_dict={'error_validate': 'Вы не написали комментарий!'})
+
+            
+class User_posts(VerificationUserMixin):
+    def get(self, request, id):
+        user = CustomUser.objects.get(id=id)
+        posts = Post.objects.filter(CustomUser=id)
+
+        return render(request, 'news/user_posts.html', {'posts': posts})
+
+class Top_rating(View):
+    def get(self, request):
+        posts = Post.objects.order_by('likes')
+
+        return render(request, 'news/top_raiting.html', {'posts': posts})

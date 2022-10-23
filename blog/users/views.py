@@ -9,6 +9,11 @@ from .forms import UserRegistrationForm
 from blog.secrets import KEY_FOR_HASH
 from users import util
 
+from news.models import Post
+
+from news.utils import VerificationUserMixin
+
+
 
 class check_verify_code(View):
 
@@ -47,4 +52,12 @@ class Registrate(View):
     def get(self, request):
         user_form = UserRegistrationForm()
         return render(request, 'registration/signup.html', {'form': user_form})
+
+class Profile_view(VerificationUserMixin, View):
+    def get(self, request):
+        user = CustomUser.objects.get(id=request.user.id)
+        achievements = user.achievements.all()
+        count_posts = Post.objects.filter(CustomUser=request.user.id).count()
+
+        return render(request, 'account/profile.html', {'user': user, 'achievements': achievements, 'count_posts': count_posts, 'avatar_url': user.photo.url})
 

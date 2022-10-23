@@ -21,17 +21,17 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Топ рейтинга</a>
+                    <a class="nav-link" href="{% url 'Top_raiting' %}">Топ рейтинга</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Мои статьи</a>
+                    <a class="nav-link" href="{% url 'User_posts' id=request.user.id%}">Мои посты</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'create_post_view' %}">Создать статью</a>
                   </li>
                 </ul>
                 {% if request.user.is_authenticated  %}
-                  {{ request.user }}
+                   <a href="{% url 'Profile_view' %}">{{ request.user }}</a> 
                 {% else %}
                   <a href="{% url 'login' %}" style="margin-right: 5px;">Войти</a>
                   <a href="{% url 'signup' %}">Зарегистрироваться</a>
@@ -44,7 +44,7 @@
             </div>
           </nav>
     </header>
-    <div class="vstack gap-2 col-md-5 mx-auto list-group">
+    <div class="vstack col-md-10 mx-auto list-group">
         {% block content %}
 
         {% endblock %}
