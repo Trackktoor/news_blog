@@ -1,6 +1,9 @@
+from tkinter import N
 from django import dispatch
 from .models import *
 from django.views import View
+from django.core.paginator import Paginator
+from django.shortcuts import render
 
 from django.shortcuts import  redirect, reverse
 
@@ -10,6 +13,17 @@ class VerificationUserMixin(View):
             return super().dispatch(request,  *args, **kwargs)
         else:
             return redirect(reverse('login'))
+
+class ViewPostsMixin(View):
+    template_name = None
+    order_by = None
+
+    def get(self, request, page_paginator=1):
+
+        posts_paginate = Paginator(Post.objects.order_by(self.order_by), 5)
+        page = posts_paginate.page(page_paginator)
+        
+        return render(request, self.template_name, context = {'posts': page.object_list, 'page': page})
     
 
 def get_client_ip(request):

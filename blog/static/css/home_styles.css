@@ -1,0 +1,20 @@
+.nav_paginate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0px 20px 0px;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.nav_paginate #page_of_pages {
+    margin: 0 10px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav_paginate > a {
+     text-decoration: none;
+}

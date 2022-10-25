@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.home_view.as_view(), name='home_view'),
+    path('paginate/<int:page_paginator>', views.home_view.as_view(), name='home_view__paginate'),
     path('<int:id>', views.post_view.as_view(), name='post_view'),
     path('create_post', views.create_post_view.as_view(), name='create_post_view'),
     path(

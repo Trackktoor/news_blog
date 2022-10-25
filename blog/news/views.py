@@ -3,14 +3,17 @@ from users.models import CustomUser
 from .models import IP, Post, Comment
 from .forms import *
 from django.views import View
-from .utils import get_client_ip, VerificationUserMixin
+from .utils import get_client_ip, VerificationUserMixin, ViewPostsMixin
 from achievements.util import first_post_achievement
 
 
-class home_view(View):
-    def get(self, request):
-        posts = Post.objects.all()
-        return render(request, 'news/home.html', context = {'posts': posts})
+class home_view(ViewPostsMixin):
+    template_name = 'news/home.html'
+    order_by = '-date_time'
+
+class Top_rating(ViewPostsMixin):
+    template_name = 'news/top_raiting.html'
+    order_by = 'likes'
 
 
 class post_view(View):
@@ -130,8 +133,4 @@ class User_posts(VerificationUserMixin):
 
         return render(request, 'news/user_posts.html', {'posts': posts})
 
-class Top_rating(View):
-    def get(self, request):
-        posts = Post.objects.order_by('likes')
 
-        return render(request, 'news/top_raiting.html', {'posts': posts})

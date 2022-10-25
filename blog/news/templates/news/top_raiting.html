@@ -2,6 +2,11 @@
 
 {% block title %} Топ рейтинг {% endblock %}
 
+
+{% block styles %}
+    <link rel="stylesheet" href="../../../static/css/top_raiting_styles.css">
+{% endblock %}
+
 {% block content %}
     <h1>Топ рейтинга</h1>
     {% for post in posts %}
@@ -14,4 +19,18 @@
             </div>
         </div>
     {% endfor %}
+    <div class="nav_paginate">
+        <a href="{% url 'home_view__paginate' page_paginator=1 %}">Первая</a>
+        {% if page.has_previous %}
+            
+            <a href="{% url 'home_view__paginate' page_paginator=page.previous_page_number %}">Предыдущая</a>
+        {% endif %}
+
+        <div id="page_of_pages">Страница {{ page.number }} из {{ page.paginator.num_pages }}</div>
+
+        {% if page.has_next %}
+            <a href="{% url 'home_view__paginate' page_paginator=page.next_page_number %}">Следующая</a>
+            <a href="{% url 'home_view__paginate' page_paginator=page.paginator.num_pages %}">Последняя</a>
+
+        {% endif %}
 {% endblock %}
